@@ -13,16 +13,14 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //request handling
 app.post('/repos', function (req, res) {
-
+  // TODO - your code here!
   // This route should take the github username provided
-  gitAPI.getReposByUsername(req.body.user)
-
   // and get the repo information from the github API, then
+  // save the repo information in the database
+  gitAPI.getReposByUsername(req.body.user)
   .then((apiResponse) => {
-
-    // save the repo information in the database
+    console.log(apiResponse.data.length);
     return db.save(apiResponse.data);
-
   }).then(() => {
     res.status(201).send();
   })
@@ -30,12 +28,9 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
-
+  // This route should send back the top 25 repos
   db.get25().then((results) => {
-
-    // This route should send back the top 25 repos
     res.status(200).json(results);
-
   }).catch((e) => {
     res.status(500).send(e);
   })
