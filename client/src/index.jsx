@@ -4,10 +4,12 @@ import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
 
@@ -16,6 +18,18 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    $.ajax('/repos', {
+      data: {user: term},
+      method: "POST",
+      success: console.log,
+      error: (e) => {
+        console.warn('error making post request', e);
+      },
+      complete: () => {
+        console.log('post request resolved');
+      },
+      timeout: 5000
+    })
   }
 
   render () {
