@@ -4,10 +4,7 @@ let getReposByUsername = (user) => {
   // TODO - Use the axios module to request repos for a specific
   // user from the github API
 
-  let TOKEN = config.TOKEN;
-  if (!TOKEN) {
-    TOKEN = process.env.GITHUBTOKEN
-  }
+  let TOKEN = process.env.GITHUBTOKEN;
 
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
