@@ -32,6 +32,26 @@ class App extends React.Component {
     })
   }
 
+  grabRepos(successCB) {
+    $.ajax('/repos', {
+      method: "GET",
+      success: successCB,
+      error: (e) => {
+        console.warn('error making /repos get request', e);
+      }
+    });
+  }
+
+  setRepos(repoData) {
+    this.setState({
+      repos: repoData
+    });
+  }
+
+  componentDidMount() {
+    this.grabRepos(this.setRepos.bind(this));
+  }
+
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
