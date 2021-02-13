@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect(`mongodb+srv://jhenderson19:${process.env.dbPass}@cluster0.z4h69.mongodb.net/fetcher?retryWrites=true&w=majority`);
+mongoose.connect(`${process.env.dbURL}`);
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
