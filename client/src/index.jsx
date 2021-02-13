@@ -12,7 +12,6 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
   }
 
   search (term) {
@@ -21,7 +20,9 @@ class App extends React.Component {
     $.ajax('/repos', {
       data: {user: term},
       method: "POST",
-      success: console.log,
+      success: () => {
+        this.grabRepos();
+      },
       error: (e) => {
         console.warn('error making post request', e);
       },
@@ -32,24 +33,22 @@ class App extends React.Component {
     })
   }
 
-  grabRepos(successCB) {
+  grabRepos() {
     $.ajax('/repos', {
       method: "GET",
-      success: successCB,
+      success: (repoData) => {
+        this.setState({
+          repos: repoData
+        });
+      },
       error: (e) => {
         console.warn('error making /repos get request', e);
       }
     });
   }
 
-  setRepos(repoData) {
-    this.setState({
-      repos: repoData
-    });
-  }
-
   componentDidMount() {
-    this.grabRepos(this.setRepos.bind(this));
+    this.grabRepos();
   }
 
   render () {
